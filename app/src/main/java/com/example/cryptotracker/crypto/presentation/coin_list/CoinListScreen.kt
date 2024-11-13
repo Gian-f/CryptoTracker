@@ -1,4 +1,4 @@
-package com.example.cryptotracker.crypto.presentation.coin_list.components
+package com.example.cryptotracker.crypto.presentation.coin_list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,8 +13,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.example.cryptotracker.crypto.presentation.coin_list.components.CoinListItem
+import com.example.cryptotracker.crypto.presentation.coin_list.components.previewCoin
 import com.example.cryptotracker.ui.theme.CryptoTrackerTheme
 
 @Composable
@@ -22,19 +24,25 @@ fun CoinListScreen(
     state: CoinListState,
     modifier: Modifier = Modifier
 ) {
+
     if (state.isLoading) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Box(
+            modifier = modifier
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
             CircularProgressIndicator()
         }
     } else {
         LazyColumn(
-            modifier = modifier.fillMaxSize(),
+            modifier = modifier
+                .fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(state.coins) { coinUi ->
                 CoinListItem(
                     coinUi = coinUi,
-                    onClick = {},
+                    onClick = { /*TODO*/ },
                     modifier = Modifier.fillMaxWidth()
                 )
                 HorizontalDivider()
@@ -43,8 +51,7 @@ fun CoinListScreen(
     }
 }
 
-
-@Preview
+@PreviewLightDark
 @Composable
 private fun CoinListScreenPreview() {
     CryptoTrackerTheme {
@@ -54,7 +61,8 @@ private fun CoinListScreenPreview() {
                     previewCoin.copy(id = it.toString())
                 }
             ),
-            modifier = Modifier.background(MaterialTheme.colorScheme.primaryContainer)
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.background),
         )
     }
 }
